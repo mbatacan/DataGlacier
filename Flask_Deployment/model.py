@@ -52,6 +52,9 @@ my_cols = low_cardinality_cols + numerical_cols
 X_train = X_train_full[my_cols]
 X_valid = X_valid_full[my_cols]
 
+print('Valid Columns:')
+print(X_train.columns)
+
 object_cols = [col for col in X_train if X_train[col].dtype == 'object']
 
 OH_encoder = OneHotEncoder(handle_unknown = 'ignore',sparse = False)
@@ -66,8 +69,6 @@ num_X_valid = X_valid.drop(object_cols,axis = 1)
 
 OH_X_train = pd.concat([num_X_train,OH_cols_train],axis = 1)
 OH_X_valid = pd.concat([num_X_valid,OH_cols_valid],axis = 1)
-
-
 
 
 regressor = RandomForestRegressor(n_estimators=100, random_state=0)
